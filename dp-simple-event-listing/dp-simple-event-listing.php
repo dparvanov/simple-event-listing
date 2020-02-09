@@ -6,6 +6,10 @@ Author: Denislav Parvanov
 */
 
 define('MAP_API_KEY', 'AIzaSyAUio3kigwA5ZOLTVQMwNTCxskUnukAfxU');
+define('DEFAULT_GOOGLE_MAP_LAT', 42.706953);
+define('DEFAULT_GOOGLE_MAP_LNG', 23.3211915);
+
+
 define('ROOT', plugins_url('', __FILE__));
 define('ROOT_DIR', plugin_dir_path(__FILE__));
 define('STYLES', ROOT . '/css/');
@@ -25,7 +29,7 @@ function dp_change_events_sort_order($query){
         $query->set( 'order', 'ASC');
         $query->set( 'meta_key', 'event-date' );
         $query->set( 'orderby', 'meta_value' );
-        
+
     endif;
 };
 
@@ -87,9 +91,19 @@ function dp_admin_script_style($hook) {
         wp_enqueue_script(
             'gmaps-meta-box',
             SCRIPTS . 'maps.js');
+
+        $lat = get_post_meta($post->ID, 'event-glat', true);
+        $lng = get_post_meta($post->ID, 'event-glng', true);
+
+        // if there is previously saved value then retrieve it, else set it to default one
+        if(empty($lat) || empty($lng)){
+            $lat = DEFAULT_GOOGLE_MAP_LAT;
+            $lng = DEFAULT_GOOGLE_MAP_LNG;
+        }
+
         $helper = array(
-            'lat' => get_post_meta($post->ID, 'dp-event-glat', true),
-            'lng' => get_post_meta($post->ID, 'dp-event-glng', true)
+            'lat' => $lat,
+            'lng' =>  $lng
         );
 
         wp_localize_script(
@@ -153,10 +167,11 @@ function dp_render_event_info_metabox($post) {
     // if there is previously saved value then retrieve it, else set it to default one
     $event_date = !empty($event_date) ? $event_date : time();
     if(empty($lat) || empty($lng)){
-        $lat = 42.706953;
-        $lng = 23.3211915;
+        $lat = DEFAULT_GOOGLE_MAP_LAT;
+        $lng = DEFAULT_GOOGLE_MAP_LNG;
     }
-    
+
+
     dp_event_date_html($event_date);
     dp_event_location_html($lat, $lng);
     dp_event_url_html($event_url);
