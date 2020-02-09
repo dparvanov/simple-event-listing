@@ -1,0 +1,8 @@
+.maparea {
+    height: 50vh;
+    width: 100%;
+}
+
+#dp-event-date, #dp-event-location{
+    margin-bottom: 20px;
+}

@@ -1,0 +1,53 @@
+.container .page-header{
+    text-align: center;
+}
+
+.container{
+    width: 90%;
+    margin: auto;
+}
+
+.event-element{
+    margin: 20px;
+}
+
+.event-title{
+    text-align: center;
+}
+
+.event-info > div{
+    margin: 10px;
+}
+
+.event-info{
+    width: 30%;
+    float: left;
+    text-align: center;
+}
+
+.maparea-parent{
+    width: 69%;
+    display: inline-block;
+}
+
+.maparea-view{
+    height: 30vh;
+    width: 100%;
+}
+
+.event-button .calendar-btn{
+    margin-top: 50px;
+   background-color: #1a73e8;
+    font-size: 12px;
+}
+
+.event-button .calendar-btn:hover,
+.event-button .calendar-btn:active,
+.event-button .calendar-btn:visited,
+.event-button .calendar-btn:focus{
+    text-decoration: none;
+}
+
+.event-url a{
+    color: #000000
+}
